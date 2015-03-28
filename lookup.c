@@ -92,17 +92,18 @@ static int lookup(char * lookup_name, int len){
 	mutable_path[path_len] = '/';
 	mutable_path[path_len + 1] = '0';
 
-	size_t offset = path_len + 1; // includes trailing slash
+	size_t offset = path_len; // always points at the last '/' in the path
 
 	while( offset > 0 ){
 		// copy in the lookup name
-		memcpy( mutable_path + offset, lookup_name, len + 1 );
+ 		// include trailing slash for offset
+		memcpy( mutable_path + offset + 1, lookup_name, len + 1 );
 
 		struct stat data;
 
 		int rc = stat( mutable_path, &data );
 
-		if( rc && rc != ENOENT ){
+		if( rc && errno != ENOENT ){
 			break;
 		}
 
