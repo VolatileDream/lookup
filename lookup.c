@@ -7,13 +7,6 @@
 // for printf
 #include <stdio.h>
 
-void usage(char* name){
-	printf("%s <name>\n", name);
-	printf("  name - the file/directory to search for.\n");
-	printf("Searches go up the current directory tree, in the\n");
-	printf("  same way git searches for it's config directory.\n");
-}
-
 // for stat, getcwd
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -64,7 +57,7 @@ static int get_path(char** out){
 // for strlen
 #include <string.h>
 
-static int lookup(char * lookup_name, int len){
+int lookup(char * lookup_name, int len){
 
 	char * mutable_path = NULL;
 
@@ -123,19 +116,6 @@ static int lookup(char * lookup_name, int len){
 	}
 
 	// we ran out of path.
-
-	fail:
-
 	free(mutable_path);
 	return 1;
-}
-
-int main(int argc, char** argv){
-
-	if( argc < 2 ){
-		usage( argv[0] );
-		return 1;
-	}
-
-	return lookup( argv[1], strlen(argv[1]));
 }
