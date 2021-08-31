@@ -101,7 +101,7 @@ static int lookup(char * lookup_name, int len){
 
 		struct stat data;
 
-		int rc = stat( mutable_path, &data );
+		rc = stat( mutable_path, &data );
 
 		if( rc && errno != ENOENT ){
 			break;
