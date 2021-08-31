@@ -1,10 +1,7 @@
 
 // errno.
 #include <errno.h>
-
 #include <stdlib.h>
-
-// for printf
 #include <stdio.h>
 
 // for stat, getcwd
@@ -57,7 +54,7 @@ static int get_path(char** out){
 // for strlen
 #include <string.h>
 
-int lookup(char * lookup_name, int len){
+int lookup(char * lookup_name, int len, char** out_path){
 
 	char * mutable_path = NULL;
 
@@ -101,8 +98,7 @@ int lookup(char * lookup_name, int len){
 		}
 
 		if( ! rc ){
-			printf("%s\n", mutable_path);
-			free(mutable_path);
+			*out_path = mutable_path;
 			return 0;
 		}
 

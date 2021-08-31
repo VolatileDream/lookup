@@ -1,6 +1,7 @@
 #include "lookup.h"
 
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 void usage(char* name){
@@ -16,6 +17,12 @@ int main(int argc, char** argv){
 		usage( argv[0] );
 		return 1;
 	}
-
-	return lookup( argv[1], strlen(argv[1]));
+  char* path = 0;
+	int rc = lookup( argv[1], strlen(argv[1]), &path);
+  if (rc) {
+    return rc;
+  }
+  printf("%s\n", path);
+  free(path);
+  return 0;
 }
